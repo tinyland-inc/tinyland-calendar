@@ -6,7 +6,7 @@
  *
  * @example
  * ```ts
- * import { configureCalendar } from '@tinyland-inc/tinyland-calendar';
+ * import { configureCalendar } from '@tummycrypt/tinyland-calendar';
  *
  * configureCalendar({
  *   logger: console,

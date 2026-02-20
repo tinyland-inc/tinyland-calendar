@@ -1,5 +1,5 @@
 /**
- * @tinyland-inc/tinyland-calendar
+ * @tummycrypt/tinyland-calendar
  *
  * Calendar system with CalDAV, iCal, RRULE, and timezone support.
  *
@@ -10,7 +10,7 @@
  *   CalendarService,
  *   RecurrenceEngine,
  *   EventTransformer,
- * } from '@tinyland-inc/tinyland-calendar';
+ * } from '@tummycrypt/tinyland-calendar';
  *
  * configureCalendar({
  *   logger: myLogger,
