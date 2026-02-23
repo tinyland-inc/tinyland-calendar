@@ -30,9 +30,9 @@ function makeEvent(overrides: Partial<CalendarEvent> = {}): CalendarEvent {
   };
 }
 
-/**
- * Create a mock CalendarDatabase with controlled event list output.
- */
+
+
+
 function createMockDb(events: CalendarEvent[]): CalendarDatabase {
   return {
     listEvents: async (_filters: EventFilters) => events,
@@ -85,7 +85,7 @@ describe('FeedGenerator', () => {
       const feed1 = await generator.generateFeed({ category: 'social' });
       const feed2 = await generator.generateFeed({ category: 'workshop' });
 
-      // Both will return same events from mock, but cache keys differ
+      
       expect(feed1).toBeDefined();
       expect(feed2).toBeDefined();
     });
@@ -123,7 +123,7 @@ describe('FeedGenerator', () => {
 
       generator.invalidateCache({ category: 'social' });
 
-      // Should regenerate after invalidation
+      
       const feed = await generator.generateFeed({ category: 'social' });
       expect(feed).toContain('BEGIN:VCALENDAR');
     });
@@ -149,7 +149,7 @@ describe('FeedGenerator', () => {
       await generator.generateFeed();
       const etag = generator.getCachedETag();
       expect(etag).toBeDefined();
-      expect(etag).toMatch(/^".*"$/); // Quoted string
+      expect(etag).toMatch(/^".*"$/); 
     });
   });
 

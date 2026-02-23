@@ -5,9 +5,9 @@ import type { RecurrencePattern, EventWithCalendar } from '../src/types.js';
 describe('RecurrenceEngine', () => {
   const engine = new RecurrenceEngine();
 
-  // ============================================================================
-  // parseRRule
-  // ============================================================================
+  
+  
+  
 
   describe('parseRRule', () => {
     it('should parse a simple daily RRULE', () => {
@@ -82,7 +82,7 @@ describe('RecurrenceEngine', () => {
     });
 
     it('should throw on invalid RRULE', () => {
-      expect(() => engine.parseRRule('')).not.toThrow(); // Gracefully handles empty
+      expect(() => engine.parseRRule('')).not.toThrow(); 
     });
 
     it('should handle RRULE with multiple BYMONTH values', () => {
@@ -96,9 +96,9 @@ describe('RecurrenceEngine', () => {
     });
   });
 
-  // ============================================================================
-  // createRRule
-  // ============================================================================
+  
+  
+  
 
   describe('createRRule', () => {
     it('should create a simple daily RRULE', () => {
@@ -184,9 +184,9 @@ describe('RecurrenceEngine', () => {
     });
   });
 
-  // ============================================================================
-  // Round-trip: parseRRule -> createRRule
-  // ============================================================================
+  
+  
+  
 
   describe('round-trip parse/create', () => {
     it('should round-trip a daily RRULE', () => {
@@ -225,9 +225,9 @@ describe('RecurrenceEngine', () => {
     });
   });
 
-  // ============================================================================
-  // validatePattern
-  // ============================================================================
+  
+  
+  
 
   describe('validatePattern', () => {
     it('should accept a valid daily pattern', () => {
@@ -320,9 +320,9 @@ describe('RecurrenceEngine', () => {
     });
   });
 
-  // ============================================================================
-  // getDescription
-  // ============================================================================
+  
+  
+  
 
   describe('getDescription', () => {
     it('should describe a daily pattern', () => {
@@ -371,9 +371,9 @@ describe('RecurrenceEngine', () => {
     });
   });
 
-  // ============================================================================
-  // generateOccurrences
-  // ============================================================================
+  
+  
+  
 
   describe('generateOccurrences', () => {
     function makeEvent(overrides: Partial<EventWithCalendar['frontmatter']> = {}): EventWithCalendar {
@@ -476,7 +476,7 @@ describe('RecurrenceEngine', () => {
         new Date('2025-01-01'),
         new Date('2025-01-31')
       );
-      // Should have 5 occurrences (Jan 1-5)
+      
       expect(occs.length).toBe(5);
     });
 
@@ -489,15 +489,15 @@ describe('RecurrenceEngine', () => {
         new Date('2025-01-10'),
         new Date('2025-01-15')
       );
-      // Only occurrences within the range
+      
       expect(occs.length).toBeGreaterThan(0);
       expect(occs.length).toBeLessThanOrEqual(6);
     });
   });
 
-  // ============================================================================
-  // Edge cases
-  // ============================================================================
+  
+  
+  
 
   describe('edge cases', () => {
     it('should handle leap year date (Feb 29)', () => {

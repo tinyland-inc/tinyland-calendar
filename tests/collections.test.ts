@@ -6,12 +6,12 @@ import { configureCalendar, resetCalendarConfig } from '../src/config.js';
 
 const TEST_DATA_DIR = path.join(process.cwd(), 'test-data-collections');
 
-/**
- * Seed the collections.json file with default collections so that
- * CalendarCollectionsStore.initialize() finds existing data and
- * does not call initializeDefaults() -> upsert() -> initialize()
- * which would cause infinite recursion.
- */
+
+
+
+
+
+
 function seedDefaultCollections(): void {
   const now = new Date().toISOString();
   const defaults = [
@@ -86,7 +86,7 @@ describe('CalendarCollectionsStore', () => {
   let store: CalendarCollectionsStore;
 
   beforeEach(() => {
-    // Use isolated test directory
+    
     if (existsSync(TEST_DATA_DIR)) {
       rmSync(TEST_DATA_DIR, { recursive: true });
     }
@@ -199,7 +199,7 @@ describe('CalendarCollectionsStore', () => {
       const all = await store.getAll();
       const names = all.map((c) => c.displayName);
 
-      // Verify alphabetical order
+      
       const sorted = [...names].sort();
       expect(names).toEqual(sorted);
     });

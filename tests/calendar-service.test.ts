@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { CalendarService } from '../src/CalendarService.js';
 import { configureCalendar, resetCalendarConfig } from '../src/config.js';
 
-// Mock the collectionsStore to avoid infinite recursion in initialize()
+
 vi.mock('../src/collections.js', () => {
   const collections = new Map<string, any>();
   return {
@@ -39,7 +39,7 @@ vi.mock('../src/collections.js', () => {
   };
 });
 
-// Mock fetch globally
+
 const mockFetch = vi.fn();
 global.fetch = mockFetch as unknown as typeof fetch;
 
@@ -50,7 +50,7 @@ describe('CalendarService', () => {
     resetCalendarConfig();
     service = new CalendarService();
 
-    // Default mock: all fetches succeed
+    
     mockFetch.mockResolvedValue({
       ok: true,
       status: 200,
@@ -73,7 +73,7 @@ describe('CalendarService', () => {
         isPublic: true,
       });
 
-      // Should have called fetch for MKCOL
+      
       const mkcolCall = mockFetch.mock.calls.find(
         (call) => call[1]?.method === 'MKCOL'
       );
@@ -115,11 +115,11 @@ describe('CalendarService', () => {
     it('should send DELETE request for non-default collection', async () => {
       configureCalendar({ calDavUrl: 'http://test-xandikos:8081' });
 
-      // Will fail due to collectionsStore, but we can at least verify the fetch
+      
       try {
         await service.deleteCollection('custom-collection');
       } catch {
-        // Expected - collections store may not be initialized
+        
       }
 
       const deleteCall = mockFetch.mock.calls.find(

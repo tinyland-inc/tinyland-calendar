@@ -35,9 +35,9 @@ describe('EventTransformer', () => {
     };
   }
 
-  // ============================================================================
-  // toICalendar
-  // ============================================================================
+  
+  
+  
 
   describe('toICalendar', () => {
     it('should transform a basic event to VEvent', () => {
@@ -154,9 +154,9 @@ describe('EventTransformer', () => {
     });
   });
 
-  // ============================================================================
-  // toVCalendar
-  // ============================================================================
+  
+  
+  
 
   describe('toVCalendar', () => {
     it('should generate valid VCALENDAR wrapper', () => {
@@ -231,7 +231,7 @@ describe('EventTransformer', () => {
       const events = [makeEvent({ description: longDescription })];
       const ics = transformer.toVCalendar(events);
 
-      // Folded lines start with a space
+      
       const lines = ics.split('\r\n');
       const foldedLines = lines.filter((l) => l.startsWith(' '));
       expect(foldedLines.length).toBeGreaterThan(0);
@@ -265,9 +265,9 @@ describe('EventTransformer', () => {
     });
   });
 
-  // ============================================================================
-  // generateUID
-  // ============================================================================
+  
+  
+  
 
   describe('generateUID', () => {
     it('should generate unique UIDs', () => {
@@ -288,9 +288,9 @@ describe('EventTransformer', () => {
     });
   });
 
-  // ============================================================================
-  // Not implemented methods
-  // ============================================================================
+  
+  
+  
 
   describe('not-implemented stubs', () => {
     it('fromICalendar should throw', () => {
