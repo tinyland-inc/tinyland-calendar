@@ -1,8 +1,8 @@
-/**
- * Main calendar service that provides initialization, sync, and management capabilities.
- *
- * Replaces the original init-xandikos.js startup script.
- */
+
+
+
+
+
 
 import { collectionsStore } from './collections.js';
 import { getCalendarConfig, getLoadEvents, getLogger } from './config.js';
@@ -11,10 +11,10 @@ import type { CollectionConfig, SyncResult, CalendarCollection } from './types.j
 export class CalendarService {
   private initialized = false;
 
-  /**
-   * Initialize calendar system.
-   * Called during app startup.
-   */
+  
+
+
+
   async initialize(): Promise<void> {
     if (this.initialized) return;
 
@@ -34,9 +34,9 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Check if Xandikos is running and accessible
-   */
+  
+
+
   private async checkXandikosHealth(): Promise<void> {
     const config = getCalendarConfig();
     const logger = getLogger();
@@ -52,9 +52,9 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Create the base calendar path if it doesn't exist
-   */
+  
+
+
   private async createCalendarBase(): Promise<void> {
     const config = getCalendarConfig();
     const baseUrl = config.calDavUrl || process.env.XANDIKOS_URL || 'http://localhost:8081';
@@ -74,9 +74,9 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Initialize default calendar collections
-   */
+  
+
+
   private async initializeDefaultCollections(): Promise<void> {
     const defaultCollections: CollectionConfig[] = [
       {
@@ -126,9 +126,9 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Create a calendar collection
-   */
+  
+
+
   async createCollection(config: CollectionConfig): Promise<void> {
     const calConfig = getCalendarConfig();
     const logger = getLogger();
@@ -154,9 +154,9 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Set CalDAV collection properties
-   */
+  
+
+
   private async setCollectionProperties(config: CollectionConfig): Promise<void> {
     const calConfig = getCalendarConfig();
     const baseUrl = calConfig.calDavUrl || process.env.XANDIKOS_URL || 'http://localhost:8081';
@@ -182,16 +182,16 @@ export class CalendarService {
     });
   }
 
-  /**
-   * Store collection metadata in flat file
-   */
+  
+
+
   private async storeCollectionMetadata(config: CollectionConfig): Promise<void> {
     await collectionsStore.upsert(config);
   }
 
-  /**
-   * Perform initial sync of MDsveX events to Xandikos
-   */
+  
+
+
   private async performInitialSync(): Promise<void> {
     const logger = getLogger();
     const loadEvents = getLoadEvents();
@@ -200,22 +200,22 @@ export class CalendarService {
     try {
       const events = await loadEvents();
       logger.debug(`[OK] Loaded ${events.length} events for sync`);
-      // Note: Full sync integration requires host-provided eventSync callback
+      
     } catch (error) {
       logger.error('[ERROR] Initial sync failed:', { error });
     }
   }
 
-  /**
-   * Get all calendar collections
-   */
+  
+
+
   async getCollections(): Promise<CalendarCollection[]> {
     return await collectionsStore.getAll();
   }
 
-  /**
-   * Update a calendar collection
-   */
+  
+
+
   async updateCollection(name: string, updates: Partial<CollectionConfig>): Promise<void> {
     await collectionsStore.update(name, updates);
 
@@ -235,16 +235,16 @@ export class CalendarService {
     }
   }
 
-  /**
-   * Get a single collection
-   */
+  
+
+
   async getCollection(name: string): Promise<CalendarCollection | null> {
     return await collectionsStore.get(name);
   }
 
-  /**
-   * Delete a calendar collection
-   */
+  
+
+
   async deleteCollection(name: string): Promise<void> {
     const defaultCollections = ['events', 'workshops', 'meetings', 'pride', 'private'];
     if (defaultCollections.includes(name)) {
@@ -262,9 +262,9 @@ export class CalendarService {
     await collectionsStore.delete(name);
   }
 
-  /**
-   * Sync all events between MDsveX and Xandikos
-   */
+  
+
+
   async syncAllEvents(): Promise<SyncResult> {
     const loadEvents = getLoadEvents();
     const startTime = Date.now();
@@ -301,5 +301,5 @@ export class CalendarService {
   }
 }
 
-/** Singleton instance */
+
 export const calendarService = new CalendarService();

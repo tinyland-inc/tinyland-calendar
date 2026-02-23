@@ -1,9 +1,9 @@
-/**
- * Flat file storage for calendar collections.
- *
- * Renamed from collections-flat.ts during package extraction.
- * Uses config-injected dataDir for file storage location.
- */
+
+
+
+
+
+
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
@@ -25,9 +25,9 @@ interface StoredCollection extends Omit<CalendarCollection, 'created_at' | 'upda
   updated_at: string;
 }
 
-/**
- * Flat file storage for calendar collections
- */
+
+
+
 export class CalendarCollectionsStore {
   private collections: Map<string, StoredCollection> = new Map();
   private initialized = false;
@@ -207,5 +207,5 @@ export class CalendarCollectionsStore {
   }
 }
 
-/** Singleton instance */
+
 export const collectionsStore = new CalendarCollectionsStore();

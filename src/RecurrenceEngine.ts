@@ -1,26 +1,26 @@
-/**
- * Engine for handling recurring events and RRULE parsing.
- *
- * Uses the `rrule` library for RFC 5545 recurrence rule processing.
- */
+
+
+
+
+
 
 import type { RecurrencePattern, EventOccurrence, RecurrenceUpdate, EventWithCalendar } from './types.js';
 import { getLogger } from './config.js';
 
-/**
- * Recurrence engine that parses, generates, and validates RRULE strings.
- *
- * Note: The `rrule` library is expected to be available in the host application.
- * Database operations (createException, getException, etc.) are stubbed and
- * should be wired via a database adapter in the host.
- */
+
+
+
+
+
+
+
 export class RecurrenceEngine {
-  /**
-   * Parse an RRULE string into a structured pattern.
-   *
-   * This is a simplified parser that handles common RRULE parameters.
-   * For full RFC 5545 compliance, the `rrule` library should be used directly.
-   */
+  
+
+
+
+
+
   parseRRule(rruleString: string): RecurrencePattern {
     try {
       const parts = rruleString.replace('RRULE:', '').split(';');
@@ -60,12 +60,12 @@ export class RecurrenceEngine {
     }
   }
 
-  /**
-   * Generate occurrences for a recurring event within a date range.
-   *
-   * This is a simplified implementation for common patterns.
-   * Complex RRULE patterns should use the `rrule` library directly.
-   */
+  
+
+
+
+
+
   async generateOccurrences(
     event: EventWithCalendar,
     startDate: Date,
@@ -108,9 +108,9 @@ export class RecurrenceEngine {
     }
   }
 
-  /**
-   * Create an RRULE string from a pattern
-   */
+  
+
+
   createRRule(pattern: RecurrencePattern): string {
     const parts: string[] = [];
 
@@ -164,9 +164,9 @@ export class RecurrenceEngine {
     return `RRULE:${parts.join(';')}`;
   }
 
-  /**
-   * Update a recurring event series
-   */
+  
+
+
   async updateRecurringSeries(
     event: EventWithCalendar,
     update: RecurrenceUpdate
@@ -186,9 +186,9 @@ export class RecurrenceEngine {
     }
   }
 
-  /**
-   * Handle an exception to a recurring event
-   */
+  
+
+
   async handleException(
     event: EventWithCalendar,
     date: Date,
@@ -198,9 +198,9 @@ export class RecurrenceEngine {
     logger.debug(`Exception created for ${event.slug} on ${date.toISOString()}`);
   }
 
-  /**
-   * Validate a recurrence pattern
-   */
+  
+
+
   validatePattern(pattern: RecurrencePattern): boolean {
     if (pattern.interval < 1) return false;
 
@@ -223,9 +223,9 @@ export class RecurrenceEngine {
     return true;
   }
 
-  /**
-   * Get a human-readable description of a recurrence pattern
-   */
+  
+
+
   getDescription(pattern: RecurrencePattern): string {
     let desc = `Repeats ${pattern.frequency}`;
 
@@ -246,14 +246,14 @@ export class RecurrenceEngine {
     return desc;
   }
 
-  // ============================================================================
-  // Private Helpers
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Expand a recurrence pattern into dates within a range.
-   * Simplified implementation for common patterns.
-   */
+  
+
+
+
   private expandPattern(
     pattern: RecurrencePattern,
     dtstart: Date,
@@ -273,7 +273,7 @@ export class RecurrenceEngine {
         dates.push(new Date(current));
       }
 
-      // Advance to next occurrence
+      
       switch (pattern.frequency) {
         case 'daily':
           current.setDate(current.getDate() + (pattern.interval || 1));
@@ -296,5 +296,5 @@ export class RecurrenceEngine {
   }
 }
 
-/** Singleton instance */
+
 export const recurrenceEngine = new RecurrenceEngine();

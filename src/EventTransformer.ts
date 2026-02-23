@@ -1,11 +1,11 @@
-/**
- * Event Transformer - Convert between Event schema and iCalendar format
- *
- * Handles transformation between CalendarEvent objects and RFC 5545 iCalendar format.
- *
- * @version 1.0.0
- * @see https://tools.ietf.org/html/rfc5545
- */
+
+
+
+
+
+
+
+
 
 import type {
   CalendarEvent,
@@ -19,13 +19,13 @@ export class EventTransformer {
   private readonly prodId = '-//Tinyland.dev//Calendar//EN';
   private readonly version = '2.0';
 
-  // ============================================================================
-  // Event -> iCalendar
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Transform CalendarEvent to VEVENT component
-   */
+  
+
+
   toICalendar(event: CalendarEvent): VEvent {
     const statusMap: Record<string, 'CONFIRMED' | 'TENTATIVE' | 'CANCELLED'> = {
       published: 'CONFIRMED',
@@ -81,9 +81,9 @@ export class EventTransformer {
     return vevent;
   }
 
-  /**
-   * Transform multiple events to complete VCALENDAR string (.ics file)
-   */
+  
+
+
   toVCalendar(events: CalendarEvent[]): string {
     const lines: string[] = [
       'BEGIN:VCALENDAR',
@@ -93,7 +93,7 @@ export class EventTransformer {
       'METHOD:PUBLISH',
     ];
 
-    // Collect unique timezones (VTIMEZONE components skipped for now)
+    
     const _timezones = new Set<string>();
     events.forEach((event) => {
       if (event.timezone && event.timezone !== 'UTC') {
@@ -111,51 +111,51 @@ export class EventTransformer {
     return lines.join('\r\n');
   }
 
-  // ============================================================================
-  // iCalendar -> Event
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Parse iCalendar string to CalendarEvent array
-   */
+  
+
+
   fromICalendar(_ical: string): CalendarEvent[] {
     throw new Error('Not implemented: fromICalendar');
   }
 
-  /**
-   * Parse single VEVENT to CalendarEvent
-   */
+  
+
+
   parseVEvent(_vevent: VEvent): CalendarEvent {
     throw new Error('Not implemented: parseVEvent');
   }
 
-  // ============================================================================
-  // Helpers
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Generate globally unique iCalendar UID
-   */
+  
+
+
   generateUID(): string {
     const timestamp = Date.now().toString(36);
     const random = Math.random().toString(36).substring(2, 15);
     return `${timestamp}-${random}@stonewallunderground.com`;
   }
 
-  /**
-   * Validate iCalendar string format
-   */
+  
+
+
   validateICalendar(_ical: string): ValidationResult {
     throw new Error('Not implemented: validateICalendar');
   }
 
-  // ============================================================================
-  // Serialization Helpers
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Serialize VEVENT to iCalendar string
-   */
+  
+
+
   private serializeVEvent(vevent: VEvent): string {
     const lines: string[] = ['BEGIN:VEVENT'];
 
@@ -219,9 +219,9 @@ export class EventTransformer {
     return lines.map((line) => this.foldLine(line)).join('\r\n');
   }
 
-  /**
-   * Escape special characters for iCalendar
-   */
+  
+
+
   private escapeText(text: string): string {
     return text
       .replace(/\\/g, '\\\\')
@@ -230,9 +230,9 @@ export class EventTransformer {
       .replace(/\n/g, '\\n');
   }
 
-  /**
-   * Fold long lines (max 75 octets per RFC 5545)
-   */
+  
+
+
   private foldLine(line: string): string {
     if (line.length <= 75) {
       return line;
@@ -252,9 +252,9 @@ export class EventTransformer {
     return result.join('\r\n');
   }
 
-  /**
-   * Format datetime for iCalendar (RFC 5545 section 3.3.5)
-   */
+  
+
+
   private formatICalDateTime(dateStr: string, utc = true): string {
     const date = new Date(dateStr);
     const year = date.getUTCFullYear().toString();

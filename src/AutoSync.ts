@@ -1,30 +1,30 @@
-/**
- * Automatic Calendar Sync Background Service
- *
- * Syncs MDsveX event files to Xandikos CalDAV server automatically.
- * - Runs on server startup
- * - Runs every 5 minutes in background
- * - Handles create, update, delete operations
- * - Provides sync status tracking
- *
- * All external dependencies (loadEvents, CalendarClient, logger)
- * are injected via the config module.
- */
+
+
+
+
+
+
+
+
+
+
+
+
 
 import { getCalendarConfig, getLoadEvents, getLogger } from './config.js';
 import type { EventContentLike } from './config.js';
 
-// Sync state tracking
+
 let lastSyncTime: Date | null = null;
 let syncInProgress = false;
 let syncSchedulerInterval: ReturnType<typeof setInterval> | null = null;
 
-// Default sync interval
-const SYNC_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
-/**
- * Transform MDsveX event to iCalendar format for Xandikos
- */
+const SYNC_INTERVAL_MS = 5 * 60 * 1000; 
+
+
+
+
 function transformEventToICal(event: EventContentLike): Record<string, unknown> {
   const fm = event.frontmatter;
 
@@ -56,9 +56,9 @@ function transformEventToICal(event: EventContentLike): Record<string, unknown> 
   };
 }
 
-/**
- * Perform full sync of all events
- */
+
+
+
 export async function performSync(): Promise<{
   success: boolean;
   synced: number;
@@ -83,7 +83,7 @@ export async function performSync(): Promise<{
     const events = await loadEvents();
     logger.info(`Found ${events.length} events to sync`, { service: 'calendar-sync' });
 
-    // Transform events (actual CalDAV sync requires host integration)
+    
     let syncedCount = 0;
     let failedCount = 0;
 
@@ -131,10 +131,10 @@ export async function performSync(): Promise<{
   }
 }
 
-/**
- * Start automatic sync scheduler.
- * Runs sync on startup and then every SYNC_INTERVAL_MS.
- */
+
+
+
+
 export async function startAutoSync(): Promise<void> {
   const logger = getLogger();
 
@@ -156,9 +156,9 @@ export async function startAutoSync(): Promise<void> {
   });
 }
 
-/**
- * Stop automatic sync scheduler
- */
+
+
+
 export function stopAutoSync(): void {
   const logger = getLogger();
 
@@ -169,9 +169,9 @@ export function stopAutoSync(): void {
   }
 }
 
-/**
- * Get sync status
- */
+
+
+
 export function getSyncStatus(): {
   enabled: boolean;
   lastSync: Date | null;
@@ -186,9 +186,9 @@ export function getSyncStatus(): {
   };
 }
 
-/**
- * Trigger manual sync (useful for testing or admin actions)
- */
+
+
+
 export async function triggerManualSync(): Promise<ReturnType<typeof performSync>> {
   const logger = getLogger();
   logger.info('Manual calendar sync triggered', { service: 'calendar-sync' });

@@ -1,9 +1,9 @@
-/**
- * Flat file storage for event sync status.
- *
- * Renamed from sync-status-flat.ts during package extraction.
- * Uses config-injected dataDir for file storage location.
- */
+
+
+
+
+
+
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
@@ -26,9 +26,9 @@ interface SyncStatus {
   error_message?: string;
 }
 
-/**
- * Flat file storage for event sync status
- */
+
+
+
 export class EventSyncStatusStore {
   private statuses: Map<string, SyncStatus> = new Map();
   private initialized = false;
@@ -120,5 +120,5 @@ export class EventSyncStatusStore {
   }
 }
 
-/** Singleton instance */
+
 export const syncStatusStore = new EventSyncStatusStore();

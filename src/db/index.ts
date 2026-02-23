@@ -1,19 +1,19 @@
-/**
- * Calendar Database Access Layer
- *
- * Provides type-safe database operations for calendar events.
- * Uses better-sqlite3 as the database engine.
- *
- * @version 1.0.0
- */
+
+
+
+
+
+
+
+
 
 import type { CalendarEvent, EventFilters, EventInstance } from '../types.js';
 
-/**
- * Minimal database interface matching better-sqlite3 API surface.
- * This avoids requiring better-sqlite3 as a direct dependency;
- * the host application provides the database instance.
- */
+
+
+
+
+
 export interface DatabaseLike {
   prepare(sql: string): {
     run(...params: unknown[]): { changes: number };
@@ -22,9 +22,9 @@ export interface DatabaseLike {
   };
 }
 
-/**
- * Database access layer for calendar operations
- */
+
+
+
 export class CalendarDatabase {
   private db: DatabaseLike;
 
@@ -32,13 +32,13 @@ export class CalendarDatabase {
     this.db = db;
   }
 
-  // ============================================================================
-  // Event CRUD Operations
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Create a new calendar event
-   */
+  
+
+
   async createEvent(
     event: Omit<CalendarEvent, 'id' | 'createdAt' | 'updatedAt'>
   ): Promise<CalendarEvent> {
@@ -112,36 +112,36 @@ export class CalendarDatabase {
     };
   }
 
-  /**
-   * Get event by ID
-   */
+  
+
+
   async getEvent(id: string): Promise<CalendarEvent | null> {
     const stmt = this.db.prepare('SELECT * FROM calendar_events WHERE id = ?');
     const row = stmt.get(id);
     return row ? this.mapRowToEvent(row) : null;
   }
 
-  /**
-   * Get event by UID
-   */
+  
+
+
   async getEventByUid(uid: string): Promise<CalendarEvent | null> {
     const stmt = this.db.prepare('SELECT * FROM calendar_events WHERE uid = ?');
     const row = stmt.get(uid);
     return row ? this.mapRowToEvent(row) : null;
   }
 
-  /**
-   * Get event by slug
-   */
+  
+
+
   async getEventBySlug(slug: string): Promise<CalendarEvent | null> {
     const stmt = this.db.prepare('SELECT * FROM calendar_events WHERE slug = ?');
     const row = stmt.get(slug);
     return row ? this.mapRowToEvent(row) : null;
   }
 
-  /**
-   * Update an event
-   */
+  
+
+
   async updateEvent(id: string, updates: Partial<CalendarEvent>): Promise<CalendarEvent | null> {
     const current = await this.getEvent(id);
     if (!current) return null;
@@ -200,18 +200,18 @@ export class CalendarDatabase {
     return updated;
   }
 
-  /**
-   * Delete an event
-   */
+  
+
+
   async deleteEvent(id: string): Promise<boolean> {
     const stmt = this.db.prepare('DELETE FROM calendar_events WHERE id = ?');
     const result = stmt.run(id);
     return result.changes > 0;
   }
 
-  /**
-   * List events with filters
-   */
+  
+
+
   async listEvents(filters: EventFilters = {}): Promise<CalendarEvent[]> {
     let query = 'SELECT * FROM calendar_events WHERE 1=1';
     const params: unknown[] = [];
@@ -264,9 +264,9 @@ export class CalendarDatabase {
     return rows.map((row) => this.mapRowToEvent(row));
   }
 
-  /**
-   * Update sync status
-   */
+  
+
+
   async updateSyncStatus(id: string, etag: string, url?: string): Promise<void> {
     const stmt = this.db.prepare(`
       UPDATE calendar_events
@@ -277,13 +277,13 @@ export class CalendarDatabase {
     stmt.run(new Date().toISOString(), etag, url || null, id);
   }
 
-  // ============================================================================
-  // Helper Methods
-  // ============================================================================
+  
+  
+  
 
-  /**
-   * Map database row to CalendarEvent
-   */
+  
+
+
   private mapRowToEvent(row: unknown): CalendarEvent {
     const r = row as Record<string, unknown>;
     return {
