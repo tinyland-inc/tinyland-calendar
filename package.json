@@ -1,6 +1,6 @@
 {
   "name": "@tummycrypt/tinyland-calendar",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Calendar system with CalDAV, iCal, RRULE, and timezone support",
   "type": "module",
   "main": "./dist/index.js",
