@@ -1,6 +1,6 @@
 {
   "name": "@tummycrypt/tinyland-calendar",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Calendar system with CalDAV, iCal, RRULE, and timezone support",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,27 +19,33 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check:package": "publint",
+    "prepublishOnly": "pnpm build && pnpm check:package"
   },
   "license": "Zlib AND LicenseRef-Tinyland-Proprietary",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.0",
+    "publint": "^0.3.18"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "engines": {
     "node": ">=22.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tinyland-inc/tinyland.dev",
-    "directory": "packages/tinyland-calendar"
+    "url": "git+https://github.com/tinyland-inc/tinyland-calendar.git"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "homepage": "https://github.com/tinyland-inc/tinyland-calendar",
+  "bugs": {
+    "url": "https://github.com/tinyland-inc/tinyland-calendar/issues"
   }
 }
